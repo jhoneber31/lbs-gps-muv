@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import * as maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
+import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url'
 import type { FeatureCollection } from 'geojson'
 import type { Filters } from '../types'
 import { circlePolygon, formatDist, formatDuration, formatLima } from '../lib/geo'
@@ -23,6 +24,9 @@ interface Props {
 }
 
 const c = { gps: '#0b6fa0', lbs: '#c97a1e', flag: '#b3265a', halo: '#ffffff' }
+
+// En el build de producción Vite no empaqueta el worker solo: se indica su URL a mano.
+maplibregl.setWorkerUrl(workerUrl)
 
 const STYLE = 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json'
 
